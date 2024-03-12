@@ -23,21 +23,27 @@ class MyApp extends StatelessWidget {
           children: [
             Task(
               nome: 'Academia',
+              foto: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
             ),
             Task(
               nome: 'Faculdade',
+              foto: '',
             ),
             Task(
               nome: 'Comer',
+              foto: '',
             ),
             Task(
               nome: 'Dormir',
+              foto: '',
             ),
             Task(
               nome: 'Jogar',
+              foto: '',
             ),
             Task(
               nome: 'Alguma coisa',
+              foto: '',
             ),
           ],
         ),
@@ -51,8 +57,9 @@ class MyApp extends StatelessWidget {
 
 class Task extends StatefulWidget {
   final String nome;
+  final String foto;
 
-  const Task({super.key, required this.nome});
+  const Task({super.key, required this.nome, required this.foto});
 
   @override
   State<Task> createState() => _TaskState();
@@ -84,6 +91,10 @@ class _TaskState extends State<Task> {
                         color: Colors.black38,
                         width: 72,
                         height: 100,
+                        child: Image.network(
+                          widget.foto,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Container(
                           width: 200,
