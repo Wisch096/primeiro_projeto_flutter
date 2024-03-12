@@ -20,30 +20,42 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
         body: ListView(
-          children: [
+          children: const [
             Task(
               nome: 'Academia',
-              foto: 'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              foto:
+                  'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              dificuldade: 3,
             ),
             Task(
               nome: 'Faculdade',
-              foto: '',
+              foto:
+                  'https://cdn.pixabay.com/photo/2018/01/17/07/06/laptop-3087585_1280.jpg',
+              dificuldade: 5,
             ),
             Task(
               nome: 'Comer',
-              foto: '',
+              foto:
+                  'https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_640.jpg',
+              dificuldade: 1,
             ),
             Task(
               nome: 'Dormir',
-              foto: '',
+              foto:
+                  'https://cdn.pixabay.com/photo/2012/03/01/01/42/baby-20339_640.jpg',
+              dificuldade: 2,
             ),
             Task(
               nome: 'Jogar',
-              foto: '',
+              foto:
+                  'https://cdn.pixabay.com/photo/2017/01/13/09/23/magic-cube-1976725_1280.jpg',
+              dificuldade: 1,
             ),
             Task(
               nome: 'Alguma coisa',
-              foto: '',
+              foto:
+                  'https://cdn.pixabay.com/photo/2018/05/12/15/46/rust-3393715_1280.jpg',
+              dificuldade: 4,
             ),
           ],
         ),
@@ -58,8 +70,13 @@ class MyApp extends StatelessWidget {
 class Task extends StatefulWidget {
   final String nome;
   final String foto;
+  final int dificuldade;
 
-  const Task({super.key, required this.nome, required this.foto});
+  const Task(
+      {super.key,
+      required this.nome,
+      required this.foto,
+      required this.dificuldade});
 
   @override
   State<Task> createState() => _TaskState();
@@ -96,15 +113,60 @@ class _TaskState extends State<Task> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Container(
-                          width: 200,
-                          child: Text(
-                            widget.nome,
-                            style: TextStyle(
-                              fontSize: 24,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              width: 200,
+                              child: Text(
+                                widget.nome,
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 1)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 2)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 3)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 4)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: (widget.dificuldade >= 5)
+                                    ? Colors.blue
+                                    : Colors.blue[100],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -125,7 +187,9 @@ class _TaskState extends State<Task> {
                         width: 200,
                         child: LinearProgressIndicator(
                           color: Colors.white,
-                          value: nivel / 10,
+                          value: (widget.dificuldade > 0)
+                              ? (nivel / widget.dificuldade) / 10
+                              : 1,
                         ),
                       ),
                     ),
